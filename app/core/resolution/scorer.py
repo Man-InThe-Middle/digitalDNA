@@ -5,11 +5,11 @@ from .normalization import normalize_text, normalize_username
 
 WEIGHTS = {
     "name": 0.24,
-    "username": 0.18,
-    "organization": 0.18,
+    "username": 0.20,
+    "organization": 0.20,
     "location": 0.10,
     "bio": 0.14,
-    "cross_links": 0.16,
+    "cross_links": 0.12,
 }
 
 
