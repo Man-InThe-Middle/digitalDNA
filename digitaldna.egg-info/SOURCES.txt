@@ -3,14 +3,17 @@ pyproject.toml
 app/__init__.py
 app/config.py
 app/main.py
+app/analysis/ollama.py
 app/api/__init__.py
 app/api/routes.py
 app/api/schemas.py
 app/core/__init__.py
 app/core/demo.py
 app/core/pipeline.py
+app/core/analysis/ollama.py
 app/core/discovery/__init__.py
 app/core/discovery/base.py
+app/core/discovery/enrichment.py
 app/core/discovery/github.py
 app/core/discovery/mock.py
 app/core/discovery/service.py
@@ -28,6 +31,7 @@ app/core/resolution/normalization.py
 app/core/resolution/resolver.py
 app/core/resolution/scorer.py
 app/core/timeline/__init__.py
+app/db/store.py
 app/models/__init__.py
 app/models/domain.py
 digitaldna.egg-info/PKG-INFO

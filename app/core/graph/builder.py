@@ -1,13 +1,256 @@
+from __future__ import annotations
+
+
 def build_graph(data):
-    c=data['candidate']; r=data['resolution']; nodes=[]; edges=[]
-    nodes.append({'id':str(c.id),'type':'person','label':c.name,'status':r.status.value,'score':r.score})
-    orgs={}
-    for p in c.profiles:
-        pid=str(p.id); nodes.append({'id':pid,'type':'account','label':p.platform,'username':p.username,'url':str(p.url) if p.url else None})
-        edges.append({'source_entity':str(c.id),'relationship':'PROBABLE_PUBLIC_PROFILE','target_entity':pid,'evidence_ids':[str(x) for x in r.supporting_evidence[:2]],'confidence':r.score/100})
-        if p.organization and p.organization not in orgs:
-            oid='org-'+str(len(orgs)+1); orgs[p.organization]=oid; nodes.append({'id':oid,'type':'organization','label':p.organization})
-        if p.organization: edges.append({'source_entity':pid,'relationship':'AFFILIATED_WITH','target_entity':orgs[p.organization],'evidence_ids':[str(x) for x in r.supporting_evidence[:1]],'confidence':.91})
-    nodes += [{'id':'project-1','type':'project','label':'edge-nav'},{'id':'event-1','type':'event','label':'TechForge Hyderabad'}]
-    edges += [{'source_entity':str(c.profiles[1].id),'relationship':'CONTRIBUTES_TO','target_entity':'project-1','evidence_ids':[str(r.supporting_evidence[2])],'confidence':.86},{'source_entity':str(c.profiles[4].id),'relationship':'SPOKE_AT','target_entity':'event-1','evidence_ids':[str(r.supporting_evidence[4])],'confidence':.9}]
-    return {'nodes':nodes,'edges':edges}
+
+    candidate = data["candidate"]
+    resolution = data["resolution"]
+
+    nodes = []
+    edges = []
+
+    person_id = str(candidate.id)
+
+    # -----------------------------------------
+    # PERSON
+    # -----------------------------------------
+
+    nodes.append({
+        "id": person_id,
+        "type": "person",
+        "label": candidate.name,
+        "status": resolution.status.value,
+        "score": resolution.score,
+    })
+
+    organizations = {}
+    projects = {}
+    events = {}
+
+    # -----------------------------------------
+    # PROFILES
+    # -----------------------------------------
+
+    for profile in candidate.profiles:
+
+        profile_id = str(profile.id)
+
+        nodes.append({
+
+            "id": profile_id,
+
+            "type": "account",
+
+            "label":
+                profile.platform,
+
+            "username":
+                profile.username,
+
+            "url":
+                str(profile.url)
+                if profile.url
+                else None,
+        })
+
+        # Evidence originating from this source
+        source_evidence = [
+            str(e.id)
+            for e in candidate.evidence
+            if e.source_url == profile.url
+        ]
+
+        # PERSON → ACCOUNT
+
+        edges.append({
+
+            "source_entity":
+                person_id,
+
+            "relationship":
+                "IDENTITY_LINK",
+
+            "target_entity":
+                profile_id,
+
+            "evidence_ids":
+                source_evidence[:4],
+
+            "confidence":
+                round(
+                    resolution.score / 100,
+                    3
+                ),
+        })
+
+        # -------------------------------------
+        # ORGANIZATION
+        # -------------------------------------
+
+        if profile.organization:
+
+            key = (
+                profile.organization
+                .casefold()
+                .strip()
+            )
+
+            if key not in organizations:
+
+                organization_id = (
+                    f"org-{len(organizations)+1}"
+                )
+
+                organizations[key] = (
+                    organization_id
+                )
+
+                nodes.append({
+
+                    "id":
+                        organization_id,
+
+                    "type":
+                        "organization",
+
+                    "label":
+                        profile.organization,
+                })
+
+            edges.append({
+
+                "source_entity":
+                    profile_id,
+
+                "relationship":
+                    "AFFILIATED_WITH",
+
+                "target_entity":
+                    organizations[key],
+
+                "evidence_ids": [
+                    str(e.id)
+                    for e in candidate.evidence
+                    if (
+                        e.source_url == profile.url
+                        and
+                        e.signal_type
+                        == "organization_overlap"
+                    )
+                ][:3],
+
+                "confidence":
+                    0.90,
+            })
+
+        # -------------------------------------
+        # PROJECTS
+        # -------------------------------------
+
+        metadata = profile.metadata or {}
+
+        repos = metadata.get("repos", [])
+
+        if isinstance(repos, list):
+
+            for repo in repos:
+
+                key = str(repo).casefold()
+
+                if key not in projects:
+
+                    project_id = (
+                        f"project-{len(projects)+1}"
+                    )
+
+                    projects[key] = project_id
+
+                    nodes.append({
+
+                        "id":
+                            project_id,
+
+                        "type":
+                            "project",
+
+                        "label":
+                            str(repo),
+                    })
+
+                edges.append({
+
+                    "source_entity":
+                        profile_id,
+
+                    "relationship":
+                        "CONTRIBUTES_TO",
+
+                    "target_entity":
+                        projects[key],
+
+                    "evidence_ids":
+                        source_evidence[:2],
+
+                    "confidence":
+                        0.82,
+                })
+
+        # -------------------------------------
+        # EVENTS
+        # -------------------------------------
+
+        event_name = (
+            metadata.get("event")
+            or
+            metadata.get("event_name")
+        )
+
+        if event_name:
+
+            key = (
+                str(event_name)
+                .casefold()
+            )
+
+            if key not in events:
+
+                event_id = (
+                    f"event-{len(events)+1}"
+                )
+
+                events[key] = event_id
+
+                nodes.append({
+
+                    "id":
+                        event_id,
+
+                    "type":
+                        "event",
+
+                    "label":
+                        str(event_name),
+                })
+
+            edges.append({
+
+                "source_entity":
+                    profile_id,
+
+                "relationship":
+                    "PARTICIPATED_IN",
+
+                "target_entity":
+                    events[key],
+
+                "evidence_ids":
+                    source_evidence[:2],
+
+                "confidence":
+                    0.80,
+            })
+
+    return {
+        "nodes": nodes,
+        "edges": edges,
+    }

@@ -1,15 +1,32 @@
 [project]
-name='digitaldna'
-version='1.0.0'
-description='DigitalDNA - Evidence-driven public identity intelligence platform'
-requires-python='>=3.12,<3.13'
-dependencies=['fastapi>=0.115,<1','uvicorn[standard]>=0.34,<1','pydantic>=2.10,<3','pydantic-settings>=2.7,<3','rapidfuzz>=3.10,<4','python-multipart>=0.0.20,<1']
+name = "digitaldna"
+version = "2.0.0"
+description = "DigitalDNA - evidence-driven public identity intelligence backend"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi>=0.141,<1",
+  "uvicorn[standard]>=0.53,<1",
+  "pydantic>=2.13,<3",
+  "pydantic-settings>=2.15,<3",
+  "rapidfuzz>=3.14,<4",
+  "python-multipart>=0.0.32,<1",
+  "httpx>=0.28,<1",
+]
+
 [project.optional-dependencies]
-test=['pytest>=8.3,<9','pytest-asyncio>=0.25,<1']
+test = [
+  "pytest>=8,<10",
+  "pytest-asyncio>=0.25,<2",
+]
+
 [build-system]
-requires=['setuptools>=75']
-build-backend='setuptools.build_meta'
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
 
 [tool.pytest.ini_options]
-pythonpath=['.']
-testpaths=['tests']
+pythonpath = ["."]
+testpaths = ["tests"]
+asyncio_mode = "auto"

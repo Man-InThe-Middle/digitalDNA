@@ -1,10 +1,11 @@
-fastapi<1,>=0.115
-uvicorn[standard]<1,>=0.34
-pydantic<3,>=2.10
-pydantic-settings<3,>=2.7
-rapidfuzz<4,>=3.10
-python-multipart<1,>=0.0.20
+fastapi<1,>=0.141
+uvicorn[standard]<1,>=0.53
+pydantic<3,>=2.13
+pydantic-settings<3,>=2.15
+rapidfuzz<4,>=3.14
+python-multipart<1,>=0.0.32
+httpx<1,>=0.28
 
 [test]
-pytest<9,>=8.3
-pytest-asyncio<1,>=0.25
+pytest<10,>=8
+pytest-asyncio<2,>=0.25

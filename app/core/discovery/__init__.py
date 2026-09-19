@@ -1,6 +1,13 @@
-from .base import DiscoveryProvider, DiscoveryQuery
+from .base import DiscoveryProvider
 from .github import GitHubDiscoveryProvider
-from .web import DuckDuckGoWebDiscoveryProvider
+from .web import WebSearchDiscoveryProvider
+from .mock import MockDiscoveryProvider
 from .service import DiscoveryService
 
-__all__ = ["DiscoveryProvider", "DiscoveryQuery", "GitHubDiscoveryProvider", "DuckDuckGoWebDiscoveryProvider", "DiscoveryService"]
+__all__ = [
+    "DiscoveryProvider",
+    "GitHubDiscoveryProvider",
+    "WebSearchDiscoveryProvider",
+    "MockDiscoveryProvider",
+    "DiscoveryService",
+]
