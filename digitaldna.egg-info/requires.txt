@@ -1,0 +1,12 @@
+fastapi<1,>=0.115
+uvicorn[standard]<1,>=0.34
+pydantic<3,>=2.10
+pydantic-settings<3,>=2.7
+sqlalchemy<3,>=2.0
+rapidfuzz<4,>=3.10
+httpx<1,>=0.28
+python-multipart<1,>=0.0.20
+
+[test]
+pytest<9,>=8.3
+pytest-asyncio<1,>=0.25

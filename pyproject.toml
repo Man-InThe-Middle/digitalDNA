@@ -1,0 +1,29 @@
+[project]
+name = "digitaldna"
+version = "0.1.0"
+description = "Evidence-driven public identity and digital footprint intelligence platform"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.34,<1",
+  "pydantic>=2.10,<3",
+  "pydantic-settings>=2.7,<3",
+  "sqlalchemy>=2.0,<3",
+  "rapidfuzz>=3.10,<4",
+  "httpx>=0.28,<1",
+  "python-multipart>=0.0.20,<1",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8.3,<9", "pytest-asyncio>=0.25,<1"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
