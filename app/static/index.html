@@ -1,4 +1,158 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DigitalDNA</title><style>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DigitalDNA</title><style>.signals{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-top:12px;
+}
+
+.signal{
+    display:grid;
+    grid-template-columns:130px 1fr 42px;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+}
+
+.signal-name{
+    color:#9aa3b2;
+}
+
+.signal-track{
+    height:5px;
+    background:#171b24;
+    border-radius:999px;
+    overflow:hidden;
+}
+
+.signal-fill{
+    height:100%;
+    background:#8b5cf6;
+    border-radius:999px;
+}
+
+.signal-value{
+    text-align:right;
+    color:#e8ebf2;
+    font-variant-numeric:tabular-nums;
+}
+
+.inspector{
+    margin-top:8px;
+    padding:12px;
+    border:1px solid #202532;
+    background:#0d1017;
+    border-radius:8px;
+}
+
+.inspector-title{
+    font-weight:700;
+    color:#f2f4f8;
+    margin-bottom:6px;
+}
+
+.inspector-meta{
+    color:#8d96a7;
+    font-size:11px;
+    line-height:1.5;
+}
+
+.inspector-evidence{
+    margin-top:10px;
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.inspector-evidence-item{
+    padding:8px;
+    border-left:2px solid #8b5cf6;
+    background:#11151d;
+    font-size:11px;
+    line-height:1.45;
+}
+.inspector{
+    margin:18px 0;
+    padding:14px;
+    background:#111621;
+    border:1px solid #252d3a;
+    border-radius:12px;
+}
+
+.inspector-title{
+    font-size:18px;
+    font-weight:800;
+    margin-top:7px;
+}
+
+.inspector-type{
+    display:inline-block;
+    margin-top:6px;
+    padding:4px 7px;
+    border-radius:99px;
+    background:#1b2330;
+    color:#aeb8cc;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+.inspector-section{
+    margin-top:16px;
+}
+
+.inspector-section-title{
+    font-size:10px;
+    color:#8f9ab0;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    margin-bottom:8px;
+}
+
+.relationship{
+    padding:9px 0;
+    border-bottom:1px solid #202532;
+}
+
+.relationship:last-child{
+    border-bottom:0;
+}
+
+.relationship-name{
+    font-weight:700;
+    font-size:12px;
+}
+
+.relationship-meta{
+    color:#7e8798;
+    font-size:10px;
+    margin-top:3px;
+}
+
+.inspector-source{
+    display:block;
+    margin-top:5px;
+    color:#8ab4ff;
+    font-size:10px;
+    text-decoration:none;
+}
+
+.graph-node{
+    cursor:pointer;
+}
+
+.graph-node:hover{
+    filter:brightness(1.3);
+}
+
+.graph-node.selected{
+    stroke:#ffffff;
+    stroke-width:3;
+}
+
+.graph-edge-selected{
+    stroke:#8ab4ff;
+    stroke-width:2.5;
+}
 *{box-sizing:border-box}body{margin:0;background:#080a0f;color:#e8ebf2;font:14px Inter,system-ui,Segoe UI,sans-serif}button,input,textarea{font:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:300px 1fr 360px;height:100vh}.side{background:#0d1017;border-right:1px solid #202532;padding:22px;overflow:auto}.right{background:#0d1017;border-left:1px solid #202532;padding:22px;overflow:auto}.brand{font-size:20px;font-weight:800;letter-spacing:-.5px}.muted{color:#7e8798}.eyebrow{font-size:11px;color:#8f9ab0;text-transform:uppercase;letter-spacing:1.3px}.field{margin:18px 0}.field label{display:block;margin-bottom:7px;color:#aeb6c7;font-size:12px}.field input,.field textarea{width:100%;background:#111621;border:1px solid #293141;border-radius:9px;color:#fff;padding:10px;outline:none}.field textarea{height:90px;resize:vertical}.check{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:#aeb6c7}.primary{width:100%;background:#e8ebf2;color:#080a0f;border:0;border-radius:9px;padding:11px;font-weight:800}.secondary{background:#151a24;color:#dce2ee;border:1px solid #2b3342;border-radius:8px;padding:8px 10px}.main{display:flex;flex-direction:column;min-width:0}.top{height:70px;border-bottom:1px solid #202532;padding:18px 24px;display:flex;align-items:center;justify-content:space-between}.workspace{
     display:grid;
     grid-template-rows:minmax(420px, 1fr) 190px;
@@ -9,14 +163,800 @@
     min-height:420px;
     background:radial-gradient(circle at 50% 45%,#151a27 0,#080a0f 52%);
 }svg{width:100%;height:100%}.timeline{border-top:1px solid #202532;padding:16px 24px;overflow:auto}.cards{display:flex;gap:12px}.card{min-width:220px;background:#111621;border:1px solid #252d3a;border-radius:12px;padding:13px}.pill{display:inline-block;padding:4px 7px;border-radius:99px;background:#1b2330;color:#aeb8cc;font-size:10px;font-weight:700}.score{font-size:38px;font-weight:900;letter-spacing:-2px}.status{color:#8fe0ad}.profile{padding:12px 0;border-bottom:1px solid #202532}.profile b{display:block}.profile a{color:#8ab4ff;text-decoration:none;font-size:11px}.evidence{background:#111621;border:1px solid #252d3a;border-radius:10px;padding:10px;margin:9px 0}.signal{color:#b9c3d6;font-size:11px}.conflict{border-left:3px solid #e4b86a;padding:10px;background:#18150f;border-radius:5px;margin:8px 0}.actions{display:flex;gap:8px}.empty{padding:30px;text-align:center;color:#707a8e}.nodeLabel{fill:#dce2ee;font-size:12px}.nodeSub{fill:#7f8ba0;font-size:10px}.edge{stroke:#3a4558;stroke-width:1.4}.node{fill:#151b26;stroke:#6f7c92;stroke-width:1.4}.person{fill:#e8ebf2;stroke:#e8ebf2}.personText{fill:#090b10;font-weight:800}
-</style></head><body><div class="app"><aside class="side"><div class="brand">DigitalDNA</div><div class="muted" style="margin-top:4px">Evidence-driven identity intelligence</div><div class="field"><label>SUBJECT</label><input id="subject" value="Arjun Mehta"></div><div class="field"><label>CONTEXT</label><textarea id="context">Authorized hackathon demonstration. Analyze only public/approved information.</textarea></div><div class="field"><label>AUTHORIZED IMAGE</label><input id="image" type="file" accept="image/*"></div><label class="check"><input id="authorized" type="checkbox" checked> I confirm this investigation is authorized and uses public/approved sources only.</label><button class="primary" id="run" style="margin-top:16px">Create & Run Investigation</button><div id="msg" class="muted" style="margin-top:12px"></div></aside><main class="main"><header class="top"><div><div class="eyebrow">INVESTIGATION WORKSPACE</div><div id="title">No investigation loaded</div></div><div class="actions"><button class="secondary" id="report">Export Report</button></div></header><section class="workspace"><div class="graph" id="graph"><div class="empty" id="empty">Create an authorized investigation to build the identity graph.</div><svg id="svg" style="display:none"></svg></div><div class="timeline"><div class="eyebrow" style="margin-bottom:10px">CHRONOLOGICAL FOOTPRINT</div><div class="cards" id="timeline"></div></div></section></main><aside class="right"><div class="eyebrow">RESOLUTION</div><div class="score" id="score">—</div><div class="status" id="status">Awaiting run</div><p class="muted">Configured evidence resolution score, not a probability.</p><hr style="border-color:#202532;border-width:1px 0 0"><div class="eyebrow" style="margin:18px 0 8px">PUBLIC PROFILES</div><div id="profiles"></div><div class="eyebrow" style="margin:18px 0 8px">EVIDENCE</div><div id="evidence"></div><div class="eyebrow" style="margin:18px 0 8px">CONFLICTS</div><div id="conflicts"></div></aside></div><script>
+.intel-strip{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+    padding:12px 16px;
+    border-top:1px solid #202532;
+    background:#080a0f;
+}
+
+.intel-card{
+    padding:12px 14px;
+    border:1px solid #202532;
+    border-radius:10px;
+    background:#111621;
+}
+
+.intel-card strong{
+    display:block;
+    margin-top:5px;
+    font-size:20px;
+}
+
+.explanation-list{
+    margin-top:10px;
+    margin-bottom:12px;
+}
+
+.explanation-item{
+    display:flex;
+    gap:8px;
+    margin:7px 0;
+    font-size:11px;
+    line-height:1.45;
+    color:#aeb5c5;
+}
+
+.explanation-item span:first-child{
+    color:#8b5cf6;
+}
+
+.candidate-card{
+    padding:10px 0;
+    border-bottom:1px solid #202532;
+}
+
+.candidate-card:last-child{
+    border-bottom:0;
+}
+
+.candidate-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.candidate-score{
+    font-family:monospace;
+    font-size:12px;
+    color:#e8ebf2;
+}
+
+.candidate-warning{
+    margin-top:5px;
+    font-size:10px;
+    color:#d8b46a;
+}
+
+@media(max-width:1100px){
+    .intel-strip{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:700px){
+    .intel-strip{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+</style></head><body><div class="app"><aside class="side"><div class="brand">DigitalDNA</div><div class="muted" style="margin-top:4px">Evidence-driven identity intelligence</div><div class="field"><label>SUBJECT</label><input id="subject" value="Arjun Mehta"></div><div class="field"><label>CONTEXT</label><textarea id="context">Authorized hackathon demonstration. Analyze only public/approved information.</textarea></div><div class="field"><label>AUTHORIZED IMAGE</label><input id="image" type="file" accept="image/*"></div><label class="check"><input id="authorized" type="checkbox" checked> I confirm this investigation is authorized and uses public/approved sources only.</label><button class="primary" id="run" style="margin-top:16px">Create & Run Investigation</button><div id="msg" class="muted" style="margin-top:12px"></div></aside><main class="main"><header class="top"><div><div class="eyebrow">INVESTIGATION WORKSPACE</div><div id="title">No investigation loaded</div></div><div class="actions"><button class="secondary" id="report">Export Report</button></div></header><section class="workspace">
+
+    <div class="graph" id="graph">
+        <div class="empty" id="empty">
+            Create an authorized investigation to build the identity graph.
+        </div>
+
+        <svg id="svg" style="display:none"></svg>
+    </div>
+
+    <div class="timeline">
+        <div class="eyebrow" style="margin-bottom:10px">
+            CHRONOLOGICAL FOOTPRINT
+        </div>
+
+        <div class="cards" id="timeline"></div>
+    </div>
+
+</section>
+
+<div class="intel-strip">
+
+    <div class="intel-card">
+        <span class="eyebrow">PROFILES</span>
+        <strong id="statProfiles">0</strong>
+    </div>
+
+    <div class="intel-card">
+        <span class="eyebrow">EVIDENCE</span>
+        <strong id="statEvidence">0</strong>
+    </div>
+
+    <div class="intel-card">
+        <span class="eyebrow">RELATIONSHIPS</span>
+        <strong id="statRelationships">0</strong>
+    </div>
+
+    <div class="intel-card">
+        <span class="eyebrow">CONFLICTS</span>
+        <strong id="statConflicts">0</strong>
+    </div>
+
+    <div class="intel-card">
+        <span class="eyebrow">TIMELINE EVENTS</span>
+        <strong id="statTimeline">0</strong>
+    </div>
+
+</div></main><aside class="right"><div class="eyebrow">RESOLUTION</div><div class="score" id="score">—</div><div class="status" id="status">Awaiting run</div><p class="muted">Configured evidence resolution score, not a probability.</p>
+
+<div id="resolutionExplanation"></div>
+
+<div id="signals" class="signals"></div><hr style="border-color:#202532;border-width:1px 0 0"><div class="eyebrow" style="margin:18px 0 8px">PUBLIC PROFILES</div><div id="profiles"></div><div class="eyebrow" style="margin:18px 0 8px">EVIDENCE</div><div id="evidence"></div><div class="eyebrow" style="margin-top:18px">ENTITY INSPECTOR</div>
+
+<div id="entityInspector" class="inspector">
+    <div class="empty">
+        Select a graph node to inspect its evidence.
+    </div>
+</div><div class="eyebrow" style="margin:18px 0 8px">CONFLICTS</div>
+<div id="conflicts"></div>
+
+<div class="eyebrow" style="margin:18px 0 8px">
+    ALTERNATIVE CANDIDATES
+</div>
+<div id="alternates"></div></aside></div><script>
 let current=null; const $=id=>document.getElementById(id);
 $('run').onclick=async()=>{ $('msg').textContent='Running discovery → extraction → resolution → graph…'; const fd=new FormData();fd.append('subject_label',$('subject').value);fd.append('context',$('context').value);fd.append('authorized',$('authorized').checked);if($('image').files[0])fd.append('image',$('image').files[0]);let r=await fetch('/api/v1/investigations',{method:'POST',body:fd});if(!r.ok){$('msg').textContent=(await r.json()).detail||'Create failed';return}let inv=await r.json();r=await fetch(`/api/v1/investigations/${inv.id}/run`,{method:'POST'});if(!r.ok){$('msg').textContent=(await r.json()).detail||'Run failed';return}current=await r.json();render(inv,current);$('msg').textContent='Investigation complete.'};
 $('report').onclick=()=>{if(current)window.open(`/api/v1/investigations/${current.investigation?.id||''}/report.html`,'_blank');else $('msg').textContent='Run an investigation first.'};
-function render(inv,d){$('title').textContent=inv.subject_label;$('empty').style.display='none';$('svg').style.display='block';$('score').textContent=Math.round(d.resolution.score)+'/100';$('status').textContent=d.resolution.status;$('profiles').innerHTML=d.profiles.map(p=>`<div class="profile"><b>${p.platform}${p.username?' · @'+p.username:''}</b><span class="muted">${p.organization||''}</span><br><a target="_blank" href="${p.url||'#'}">${p.url||'source unavailable'}</a></div>`).join('');$('evidence').innerHTML=d.evidence.slice(0,8).map(e=>`<div class="evidence"><span class="pill">${e.signal_type}</span><div style="margin-top:6px">${e.claim}</div><div class="signal">reliability ${(e.reliability*100).toFixed(0)}%</div></div>`).join('');$('conflicts').innerHTML=d.conflicts.map(c=>`<div class="conflict"><b>${c.field}</b><br>${c.values.join(' ↔ ')}<br><span class="muted">${c.interpretation}</span></div>`).join('');$('timeline').innerHTML=d.timeline.map(t=>`<div class="card"><span class="pill">${t.date}</span><div style="margin-top:8px;font-weight:700">${t.title}</div><div class="muted" style="margin-top:5px">${t.source}</div></div>`).join('');drawGraph(d.graph)}
-function drawGraph(g){const s=$('svg');s.innerHTML='';let w=s.clientWidth,h=s.clientHeight,cx=w/2,cy=h/2;let person=g.nodes.find(n=>n.type==='person');let others=g.nodes.filter(n=>n.id!==person.id);let pos={};pos[person.id]={x:cx,y:cy};others.forEach((n,i)=>{let a=(Math.PI*2*i/others.length)-Math.PI/2;const radius = Math.min(w, h) * 0.38;
-pos[n.id] = {
-    x: cx + Math.cos(a) * radius,
-    y: cy + Math.sin(a) * radius
-};});g.edges.forEach(e=>{let a=pos[e.source_entity],b=pos[e.target_entity];if(!a||!b)return;let l=document.createElementNS('http://www.w3.org/2000/svg','line');l.setAttribute('x1',a.x);l.setAttribute('y1',a.y);l.setAttribute('x2',b.x);l.setAttribute('y2',b.y);l.setAttribute('class','edge');s.appendChild(l)});g.nodes.forEach(n=>{let p=pos[n.id],q=document.createElementNS('http://www.w3.org/2000/svg','circle');q.setAttribute('cx',p.x);q.setAttribute('cy',p.y);q.setAttribute('r',n.type==='person'?48:32);q.setAttribute('class','node '+(n.type==='person'?'person':''));s.appendChild(q);let t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',p.x);t.setAttribute('y',p.y + (n.type==='person' ? 68 : 50));t.setAttribute('text-anchor','middle');t.setAttribute('class',n.type==='person'?'nodeLabel personText':'nodeLabel');t.textContent=n.type==='account'?(n.label+(n.username?' @'+n.username:'')):n.label;s.appendChild(t)})}
+function render(inv,d){
+    evidenceData = d.evidence || [];
+    selectedNodeId = null;
+    $('title').textContent=inv.subject_label;$('empty').style.display='none';$('svg').style.display='block';$('score').textContent=Math.round(d.resolution.score)+'/100';$('status').textContent=d.resolution.status;$('profiles').innerHTML=d.profiles.map(p=>`<div class="profile"><b>${p.platform}${p.username?' · @'+p.username:''}</b><span class="muted">${p.organization||''}</span><br><a target="_blank" href="${p.url||'#'}">${p.url||'source unavailable'}</a></div>`).join('');$('evidence').innerHTML=d.evidence.slice(0,8).map(e=>`<div class="evidence"><span class="pill">${e.signal_type}</span><div style="margin-top:6px">${e.claim}</div><div class="signal">reliability ${(e.reliability*100).toFixed(0)}%</div></div>`).join('');$('conflicts').innerHTML=d.conflicts.map(c=>`<div class="conflict"><b>${c.field}</b><br>${c.values.join(' ↔ ')}<br><span class="muted">${c.interpretation}</span></div>`).join('');$('timeline').innerHTML=d.timeline.map(t=>`<div class="card"><span class="pill">${t.date}</span><div style="margin-top:8px;font-weight:700">${t.title}</div><div class="muted" style="margin-top:5px">${t.source_url || 'Public source'}</div></div>`).join('');drawGraph(d.graph)
+     renderSignals(
+    d.resolution?.signals || {}
+);
+
+renderResolutionExplanation(
+    d.resolution?.explanation || []
+);
+
+renderAlternates(
+    d.alternates || []
+);
+
+const profileCount =
+    Array.isArray(d.profiles)
+        ? d.profiles.length
+        : 0;
+
+const evidenceCount =
+    Array.isArray(d.evidence)
+        ? d.evidence.length
+        : 0;
+
+const relationshipCount =
+    Array.isArray(d.graph?.edges)
+        ? d.graph.edges.length
+        : 0;
+
+const conflictCount =
+    Array.isArray(d.conflicts)
+        ? d.conflicts.length
+        : 0;
+
+const timelineCount =
+    Array.isArray(d.timeline)
+        ? d.timeline.length
+        : 0;
+
+$('statProfiles').textContent = profileCount;
+$('statEvidence').textContent = evidenceCount;
+$('statRelationships').textContent = relationshipCount;
+$('statConflicts').textContent = conflictCount;
+$('statTimeline').textContent = timelineCount;
+console.log('[DigitalDNA] stats:', {
+    profiles: d.profiles,
+    evidence: d.evidence,
+    graph: d.graph,
+    conflicts: d.conflicts,
+    timeline: d.timeline
+});
+}
+
+function renderSignals(signals){
+    const container = $('signals');
+
+    if(!signals || !Object.keys(signals).length){
+        container.innerHTML = '';
+        return;
+    }
+
+    const labels = {
+        name_similarity: 'Name similarity',
+        username_consistency: 'Username consistency',
+        organization_overlap: 'Organization overlap',
+        location_overlap: 'Location overlap',
+        bio_context_similarity: 'Context similarity',
+        explicit_cross_links: 'Cross-links',
+        source_diversity: 'Source diversity'
+    };
+
+    container.innerHTML = Object.entries(signals).map(([key,value]) => {
+        const pct = Math.round(Number(value) * 100);
+
+        return `
+            <div class="signal">
+                <div class="signal-name">${labels[key] || key}</div>
+                <div class="signal-track">
+                    <div class="signal-fill" style="width:${pct}%"></div>
+                </div>
+                <div class="signal-value">${pct}%</div>
+            </div>
+        `;
+    }).join('');
+}
+function renderResolutionExplanation(explanation){
+
+    const container = $('resolutionExplanation');
+
+    if(!explanation || !explanation.length){
+        container.innerHTML = '';
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="explanation-list">
+
+            ${explanation.map(item => `
+                <div class="explanation-item">
+                    <span>●</span>
+                    <span>${escapeHtml(item)}</span>
+                </div>
+            `).join('')}
+
+        </div>
+    `;
+}
+
+
+function renderAlternates(alternates){
+
+    const container = $('alternates');
+
+    if(!alternates || !alternates.length){
+
+        container.innerHTML = `
+            <div class="muted" style="font-size:11px">
+                No competing candidates detected.
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML = alternates
+        .slice(0,5)
+        .map(item => {
+
+            const name =
+                item.name ||
+                item.candidate?.name ||
+                'Unknown';
+
+            const profileCount =
+                item.profile_count ??
+                item.candidate?.profiles?.length ??
+                0;
+
+            return `
+                <div class="candidate-card">
+
+                    <div class="candidate-top">
+
+                        <strong>
+                            ${escapeHtml(name)}
+                        </strong>
+
+                        <span class="candidate-score">
+                            ${Number(item.score || 0).toFixed(1)}
+                        </span>
+
+                    </div>
+
+                    <div class="muted" style="font-size:10px;margin-top:4px">
+                        ${profileCount} public profile(s)
+                    </div>
+
+                    ${
+                        item.conflicts?.length
+                        ? `
+                            <div class="candidate-warning">
+                                ${item.conflicts.length}
+                                potential conflict(s)
+                            </div>
+                        `
+                        : ''
+                    }
+
+                </div>
+            `;
+        })
+        .join('');
+}
+let graphData = null;
+let evidenceData = [];
+let selectedNodeId = null;
+
+function drawGraph(g){
+    graphData = g;
+
+    const s = $('svg');
+    s.innerHTML = '';
+
+    let w = s.clientWidth;
+    let h = s.clientHeight;
+
+    let cx = w / 2;
+    let cy = h / 2;
+
+    const person = g.nodes.find(
+        n => n.type === 'person'
+    ); 
+
+    if(!person){
+        return;
+    }
+
+    const others = g.nodes.filter(
+        n => n.id !== person.id
+    );
+    let pos = {};
+
+    pos[person.id] = {
+        x: cx,
+        y: cy
+    };
+
+    const radius = Math.min(w, h) * 0.38;
+
+    others.forEach((n, i) => {
+        const a =
+            (Math.PI * 2 * i / others.length)
+            - Math.PI / 2;
+
+        pos[n.id] = {
+            x: cx + Math.cos(a) * radius,
+            y: cy + Math.sin(a) * radius
+        };
+    });
+
+    /*
+     * EDGES
+     */
+    g.edges.forEach(e => {
+
+        const a = pos[e.source_entity];
+        const b = pos[e.target_entity];
+
+        if(!a || !b) return;
+
+        const line =
+            document.createElementNS(
+                'http://www.w3.org/2000/svg',
+                'line'
+            );
+
+        line.setAttribute('x1', a.x);
+        line.setAttribute('y1', a.y);
+        line.setAttribute('x2', b.x);
+        line.setAttribute('y2', b.y);
+
+        line.setAttribute(
+            'class',
+            selectedNodeId &&
+            (
+                e.source_entity === selectedNodeId ||
+                e.target_entity === selectedNodeId
+            )
+            ? 'edge graph-edge-selected'
+            : 'edge'
+        );
+
+        line.dataset.source = e.source_entity;
+        line.dataset.target = e.target_entity;
+
+        s.appendChild(line);
+    });
+
+    /*
+     * NODES
+     */
+    g.nodes.forEach(n => {
+
+        const p = pos[n.id];
+
+        const group =
+            document.createElementNS(
+                'http://www.w3.org/2000/svg',
+                'g'
+            );
+
+        group.classList.add('graph-node');
+
+        if(n.id === selectedNodeId){
+            group.classList.add('selected');
+        }
+
+        group.addEventListener('click', () => {
+            selectedNodeId = n.id;
+
+            renderEntityInspector(n.id);
+
+            drawGraph(g);
+        });
+
+        /*
+         * NODE CIRCLE
+         */
+        const circle =
+            document.createElementNS(
+                'http://www.w3.org/2000/svg',
+                'circle'
+            );
+
+        circle.setAttribute('cx', p.x);
+        circle.setAttribute('cy', p.y);
+
+        circle.setAttribute(
+            'r',
+            n.type === 'person'
+                ? 48
+                : 32
+        );
+
+        circle.setAttribute(
+            'class',
+            'node ' +
+            (n.type === 'person' ? 'person' : '') +
+            (n.id === selectedNodeId ? ' selected' : '')
+        );
+
+        group.appendChild(circle);
+
+        /*
+         * NODE LABEL
+         */
+        const text =
+            document.createElementNS(
+                'http://www.w3.org/2000/svg',
+                'text'
+            );
+
+        text.setAttribute('x', p.x);
+
+        text.setAttribute(
+            'y',
+            p.y +
+            (n.type === 'person' ? 68 : 50)
+        );
+
+        text.setAttribute(
+            'text-anchor',
+            'middle'
+        );
+
+        text.setAttribute(
+            'class',
+            n.type === 'person'
+                ? 'nodeLabel personText'
+                : 'nodeLabel'
+        );
+
+        text.textContent =
+            n.type === 'account'
+                ? `${n.label}${n.username ? ' @' + n.username : ''}`
+                : n.label;
+
+        group.appendChild(text);
+
+        /*
+         * NODE TYPE
+         */
+        const sub =
+            document.createElementNS(
+                'http://www.w3.org/2000/svg',
+                'text'
+            );
+
+        sub.setAttribute('x', p.x);
+
+        sub.setAttribute(
+            'y',
+            p.y +
+            (n.type === 'person' ? 84 : 66)
+        );
+
+        sub.setAttribute(
+            'text-anchor',
+            'middle'
+        );
+
+        sub.setAttribute(
+            'class',
+            'nodeSub'
+        );
+
+        sub.textContent = n.type;
+
+        group.appendChild(sub);
+
+        s.appendChild(group);
+    });
+}
+function renderEntityInspector(nodeId){
+
+    const panel = $('entityInspector');
+
+    if(!graphData){
+        return;
+    }
+
+    const node =
+        graphData.nodes.find(
+            n => n.id === nodeId
+        );
+
+    if(!node){
+        return;
+    }
+
+    /*
+     * Relationships involving this node
+     */
+    const relationships =
+        graphData.edges.filter(
+            e =>
+                e.source_entity === nodeId ||
+                e.target_entity === nodeId
+        );
+
+    /*
+     * Evidence connected to those relationships
+     */
+    const evidenceIds = [
+        ...new Set(
+            relationships.flatMap(
+                e => e.evidence_ids || []
+            )
+        )
+    ];
+
+    const evidence =
+        evidenceData.filter(
+            e => evidenceIds.includes(e.id)
+        );
+
+    /*
+     * Find profile information if this node
+     * represents a public account.
+     */
+    const profile =
+        current?.profiles?.find(
+            p => p.id === nodeId
+        );
+
+    let html = `
+        <div class="eyebrow">SELECTED ENTITY</div>
+
+        <div class="inspector-title">
+            ${escapeHtml(node.label || 'Unknown entity')}
+        </div>
+
+        <span class="inspector-type">
+            ${escapeHtml(node.type)}
+        </span>
+    `;
+
+    if(node.username){
+
+        html += `
+            <div class="muted" style="margin-top:8px">
+                @${escapeHtml(node.username)}
+            </div>
+        `;
+    }
+
+    if(profile?.organization){
+
+        html += `
+            <div class="muted" style="margin-top:4px">
+                ${escapeHtml(profile.organization)}
+            </div>
+        `;
+    }
+
+    if(profile?.location){
+
+        html += `
+            <div class="muted" style="margin-top:4px">
+                ${escapeHtml(profile.location)}
+            </div>
+        `;
+    }
+
+    if(node.url){
+
+        html += `
+            <a
+                class="inspector-source"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="${escapeAttribute(node.url)}"
+            >
+                Open public source ↗
+            </a>
+        `;
+    }
+
+    /*
+     * PERSON RESOLUTION
+     */
+    if(node.type === 'person'){
+
+        html += `
+            <div class="inspector-section">
+                <div class="inspector-section-title">
+                    Resolution
+                </div>
+
+                <div style="font-size:24px;font-weight:900">
+                    ${Math.round(node.score || 0)}/100
+                </div>
+
+                <div class="status">
+                    ${escapeHtml(node.status || 'UNKNOWN')}
+                </div>
+            </div>
+        `;
+    }
+
+    /*
+     * RELATIONSHIPS
+     */
+    html += `
+        <div class="inspector-section">
+            <div class="inspector-section-title">
+                Relationships (${relationships.length})
+            </div>
+    `;
+
+    if(!relationships.length){
+
+        html += `
+            <div class="muted">
+                No relationships recorded.
+            </div>
+        `;
+
+    }else{
+
+        relationships.forEach(rel => {
+
+            const outgoing =
+                rel.source_entity === nodeId;
+
+            const otherId =
+                outgoing
+                    ? rel.target_entity
+                    : rel.source_entity;
+
+            const other =
+                graphData.nodes.find(
+                    n => n.id === otherId
+                );
+
+            html += `
+                <div class="relationship">
+
+                    <div class="relationship-name">
+                        ${outgoing ? '→' : '←'}
+                        ${escapeHtml(rel.relationship)}
+                    </div>
+
+                    <div class="relationship-meta">
+                        ${outgoing ? 'To' : 'From'}
+                        ${escapeHtml(other?.label || 'Unknown')}
+                        ·
+                        ${(rel.confidence * 100).toFixed(0)}% confidence
+                    </div>
+
+                    <div class="relationship-meta">
+                        ${rel.evidence_ids?.length || 0}
+                        supporting evidence item(s)
+                    </div>
+
+                </div>
+            `;
+        });
+    }
+
+    html += `</div>`;
+
+    /*
+     * EVIDENCE
+     */
+    html += `
+        <div class="inspector-section">
+            <div class="inspector-section-title">
+                Supporting Evidence (${evidence.length})
+            </div>
+    `;
+
+    if(!evidence.length){
+
+        html += `
+            <div class="muted">
+                No directly attached evidence.
+            </div>
+        `;
+
+    }else{
+
+        evidence.forEach(e => {
+
+            html += `
+                <div class="evidence">
+
+                    <span class="pill">
+                        ${escapeHtml(e.signal_type)}
+                    </span>
+
+                    <div style="margin-top:6px">
+                        ${escapeHtml(e.claim)}
+                    </div>
+
+                    <div class="signal">
+                        reliability
+                        ${(e.reliability * 100).toFixed(0)}%
+                    </div>
+
+                    ${
+                        e.source_url
+                        ? `
+                            <a
+                                class="inspector-source"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="${escapeAttribute(e.source_url)}"
+                            >
+                                View source ↗
+                            </a>
+                        `
+                        : ''
+                    }
+
+                </div>
+            `;
+        });
+    }
+
+    html += `</div>`;
+
+    panel.innerHTML = html;
+}
+function escapeHtml(value){
+
+    return String(value ?? '')
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'","&#039;");
+}
+
+function escapeAttribute(value){
+
+    return escapeHtml(value);
+}
 </script></body></html>

@@ -1,6 +1,15 @@
-from .base import DiscoveryProvider, DiscoveryQuery
+from .base import DiscoveryQuery, DiscoveryProvider
 from .github import GitHubDiscoveryProvider
-from .web import DuckDuckGoWebDiscoveryProvider
-from .service import DiscoveryService
+from .web import BingWebDiscoveryProvider, DuckDuckGoWebDiscoveryProvider
 
-__all__ = ["DiscoveryProvider", "DiscoveryQuery", "GitHubDiscoveryProvider", "DuckDuckGoWebDiscoveryProvider", "DiscoveryService"]
+# Backward-compatible alias for older imports
+WebSearchDiscoveryProvider = DuckDuckGoWebDiscoveryProvider
+
+__all__ = [
+    "DiscoveryQuery",
+    "DiscoveryProvider",
+    "GitHubDiscoveryProvider",
+    "BingWebDiscoveryProvider",
+    "DuckDuckGoWebDiscoveryProvider",
+    "WebSearchDiscoveryProvider",
+]

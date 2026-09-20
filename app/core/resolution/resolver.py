@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from app.models.domain import Candidate, ProfileRecord, ResolutionResult, ResolutionStatus
 from app.core.evidence.conflicts import detect_conflicts
 from .scorer import resolve_candidate
@@ -16,7 +18,7 @@ def classify(score: float, conflicts: list[str]) -> ResolutionStatus:
 
 
 def rank_candidates(query: ProfileRecord, candidates: list[Candidate]) -> list[ResolutionResult]:
-    results = []
+    results: list[ResolutionResult] = []
     for candidate in candidates:
         score, signals = resolve_candidate(query, candidate)
         conflicts = detect_conflicts(candidate.profiles)
@@ -28,6 +30,10 @@ def rank_candidates(query: ProfileRecord, candidates: list[Candidate]) -> list[R
                 signals={k: round(v, 4) for k, v in signals.items()},
                 supporting_evidence=[e.id for e in candidate.evidence],
                 conflicts=conflicts,
+                explanation=[
+                    "Resolution is based on configured evidence signals and source corroboration.",
+                    *(["Conflicting source claims were detected."] if conflicts else []),
+                ],
             )
         )
     return sorted(results, key=lambda r: r.score, reverse=True)
